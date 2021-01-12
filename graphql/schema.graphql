@@ -1,0 +1,124 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    farm(id: ID @eq): Farm @find
+    pond(id: ID! @eq): Pond @find
+    ponds: [Pond!]! @all
+    round(id: ID! @eq): Round @find
+    rounds: [Round!]! @all
+    feed(id: ID @eq): Feed @find
+    feedNames: [FeedName!]! @all
+    expenseType: [ExpenseType!]! @all
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    farms: [Farm!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Farm {
+    id: ID!
+    name: String!
+    map: String!
+    address: String!
+    sub_district: String!
+    district: String!
+    province: String!
+    zipcode: String!
+    User: User! @belongsTo
+    ponds: [Pond!] @hasMany
+    feedName: [FeedName!]! @hasMany
+    expenseType: [ExpenseType!]! @hasMany
+    tel: String!
+    facebook: String!
+    line: String!
+    comment: String!
+    created_at: String!
+    updated_at: String!
+}
+
+type Pond {
+    id: ID!
+
+    # farm: Farm! @belongsTo
+    name: String!
+    rounds: [Round!]! @hasMany
+    photo: String!
+    width: Int!
+    length: Int!
+    depth: Int!
+    pondType: Int!
+    status: String!
+    comment: String!
+    created_at: String!
+    updated_at: String!
+}
+
+type Round {
+    farm: Farm! @belongsTo
+    id: ID!
+    pond: Pond! @belongsTo
+    feeds: [Feed!]! @hasMany
+    start_date: DateTime!
+    qty: Int!
+    weigh: Int!
+    p: Int!
+    finished: Int!
+    comment: String!
+    created_at: String!
+    updated_at: String!
+}
+
+type Feed {
+    id: ID!
+    round: Round! @belongsTo
+    datetime: DateTime!
+    feed1: String!
+    feed2: String!
+    weigh1: Int!
+    weigh2: Int!
+    comment: String!
+}
+
+type FeedName {
+    id: ID!
+    farm: Farm! @belongsTo
+    name: String!
+    show: Int!
+    weigh: Int!
+    price: Int!
+    comment: String!
+}
+
+type FeedName {
+    id: ID!
+    farm: Farm! @belongsTo
+    name: String!
+    show: Int!
+    weigh: Int!
+    price: Int!
+    comment: String!
+}
+
+type ExpenseType {
+    id: ID!
+    farm: Farm! @belongsTo
+    name: String!
+}
+
+type Expense {
+    id: ID!
+    farm: Farm! @belongsTo
+    name: String!
+}
