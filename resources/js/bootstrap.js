@@ -1,1 +1,2 @@
-window._ = require("lodash");
+import * as lodash from "lodash";
+window._ = lodash;
