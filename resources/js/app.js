@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// require("./bootstrap");
 import "bootstrap";
+import ApolloClient from "apollo-boost";
+import VueApollo from "vue-apollo";
 import RoundList from "./RoundList";
 import Round from "./Round";
 window.Vue = Vue.default;
@@ -12,6 +13,12 @@ Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
+
+Vue.use(VueApollo);
+const apolloClient = new ApolloClient({
+    // You should use an absolute URL here
+    uri: "http://127.0.0.1/graphql"
+});
 
 const routes = [
     {
@@ -31,6 +38,10 @@ const routes = [
     }
 ];
 
+const apolloProvider = new VueApollo({
+    defaultClient: apolloClient
+});
+
 const router = new VueRouter({
     mode: "history",
     routes
@@ -38,5 +49,6 @@ const router = new VueRouter({
 
 const app = new Vue({
     el: "#app",
+    apolloProvider,
     router
 });
