@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 // require("./bootstrap");
 import "bootstrap";
 import RoundList from "./RoundList";
-
+import Round from "./Round";
 window.Vue = Vue.default;
 
 Vue.use(VueRouter);
@@ -27,11 +27,12 @@ const routes = [
     {
         path: "/round/:id",
         name: "round",
-        component: {}
+        component: Round
     }
 ];
 
 const router = new VueRouter({
+    mode: "history",
     routes
 });
 

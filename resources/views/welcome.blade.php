@@ -6,13 +6,13 @@
 
         <title>PMM</title>
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <script src="{{ mix('js/app.js') }}" defer></script>
         
     </head>
     <body class="antialiased">
         <div id="app">
             <router-view></router-view>
         </div>
-        <script src="{{ mix('js/app.js') }}"></script>
 
     </body>
 </html>
